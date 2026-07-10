@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Lothian LMC — GP Toolkit</title>
+<meta name="description" content="Tools and resources for NHS GPs in Lothian, from the Lothian Local Medical Committee.">
+<meta name="theme-color" content="#134560">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Lothian LMC">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f7f6f2;
+    --card: #ffffff;
+    --ink: #1c2a33;
+    --ink-soft: #5a6a74;
+    --rule: #dcd9d0;
+    --navy: #134560;
+    --blue: #1782b5;
+    --aqua: #44dac6;
+    --navy-soft: #e5eef4;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 680px; margin: 0 auto; padding: 0 20px 56px; }
+
+  /* ---------- masthead ---------- */
+  header {
+    background: var(--navy);
+    color: #f7f6f2;
+    padding: calc(28px + env(safe-area-inset-top)) 0 26px;
+    margin-bottom: 28px;
+  }
+  header .wrap { padding-bottom: 0; }
+  .mast-kicker {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--aqua);
+    margin-bottom: 10px;
+  }
+  .mast-title {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: clamp(30px, 8vw, 44px);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+  }
+  .mast-sub {
+    margin-top: 10px;
+    font-size: 15px;
+    color: #c8d6e0;
+    max-width: 46ch;
+  }
+  .mast-rule {
+    height: 4px;
+    width: 72px;
+    background: var(--aqua);
+    margin-top: 18px;
+  }
+
+  /* ---------- section labels ---------- */
+  .section-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin: 34px 0 14px;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+  .section-label::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid var(--rule);
+    transform: translateY(-3px);
+  }
+  main > .section-label:first-child { margin-top: 0; }
+
+  /* ---------- tool cards ---------- */
+  .tools { display: grid; gap: 14px; }
+  .tool {
+    display: block;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--navy);
+    border-radius: 10px;
+    padding: 18px 18px 16px;
+    text-decoration: none;
+    color: var(--ink);
+    transition: border-color .15s ease, transform .1s ease;
+  }
+  .tool:active { transform: scale(.99); }
+  .tool:hover, .tool:focus-visible { border-color: var(--blue); border-left-color: var(--blue); outline: none; }
+  .tool h2 {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 600;
+    font-size: 19px;
+    letter-spacing: -0.01em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .tool h2 .go {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 400;
+    font-size: 16px;
+    color: var(--blue);
+    flex-shrink: 0;
+  }
+  .tool p {
+    margin-top: 6px;
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+
+  /* ---------- website links ---------- */
+  .links { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 380px) { .links { grid-template-columns: 1fr; } }
+  .link {
+    display: block;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 14px 15px;
+    text-decoration: none;
+    color: var(--ink);
+    transition: border-color .15s ease, transform .1s ease;
+  }
+  .link:active { transform: scale(.98); }
+  .link:hover, .link:focus-visible { border-color: var(--blue); outline: none; }
+  .link strong {
+    display: block;
+    font-family: 'Archivo', sans-serif;
+    font-weight: 600;
+    font-size: 15.5px;
+    letter-spacing: -0.01em;
+  }
+  .link span {
+    display: block;
+    margin-top: 3px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .04em;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- contact ---------- */
+  .contact {
+    background: var(--navy-soft);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 16px 18px;
+    font-size: 14.5px;
+  }
+  .contact strong { font-family: 'Archivo', sans-serif; font-weight: 600; }
+  .contact a { color: var(--navy); font-weight: 600; text-decoration: none; border-bottom: 1px solid var(--blue); }
+
+  /* ---------- footer ---------- */
+  footer {
+    margin-top: 40px;
+    padding-top: 16px;
+    border-top: 1px solid var(--rule);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    color: var(--ink-soft);
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  footer a { color: var(--ink-soft); }
+
+  .hint {
+    margin-top: 14px;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--ink-soft);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tool, .link { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <p class="mast-kicker">Lothian Local Medical Committee</p>
+    <h1 class="mast-title">GP Toolkit</h1>
+    <p class="mast-sub">Representing, supporting and informing every NHS GP in Lothian on all matters relating to primary care.</p>
+    <div class="mast-rule" aria-hidden="true"></div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <p class="section-label">Tools</p>
+  <div class="tools">
+    <a class="tool" href="calculator.html">
+      <h2>Enhanced services quick calculator <span class="go">&rarr;</span></h2>
+      <p>Estimate the break-even cost to your practice of a task requested by the board, using BMA SGPC 2026/27 pay rates.</p>
+    </a>
+    <a class="tool" href="letters.html">
+      <h2>Interface template letters <span class="go">&rarr;</span></h2>
+      <p>Pre-drafted letters for declining work inappropriately transferred from secondary care, aligned with the Lothian interface agreement.</p>
+    </a>
+    <a class="tool" href="isitmyjob.html">
+      <h2>Is it my job? <span class="go">&rarr;</span></h2>
+      <p>A quick decision guide to whether a request falls within GMS essential services — with the interface rules in plain English.</p>
+    </a>
+  </div>
+
+  <p class="section-label">From the website</p>
+  <div class="links">
+    <a class="link" href="https://lothianlmc.co.uk/latest-news/">
+      <strong>Latest news</strong><span>lothianlmc.co.uk</span>
+    </a>
+    <a class="link" href="https://lothianlmc.co.uk/downloads-resources/">
+      <strong>Downloads &amp; resources</strong><span>lothianlmc.co.uk</span>
+    </a>
+    <a class="link" href="https://lothianlmc.co.uk/gms-contract/">
+      <strong>GMS contract</strong><span>lothianlmc.co.uk</span>
+    </a>
+    <a class="link" href="https://lothianlmc.co.uk/faqs/">
+      <strong>FAQs</strong><span>lothianlmc.co.uk</span>
+    </a>
+    <a class="link" href="https://lothianlmc.co.uk/vacancies/">
+      <strong>GP vacancies</strong><span>lothianlmc.co.uk</span>
+    </a>
+    <a class="link" href="https://lothianlmc.co.uk/gp-support/">
+      <strong>GP support</strong><span>lothianlmc.co.uk</span>
+    </a>
+  </div>
+
+  <p class="section-label">Get in touch</p>
+  <div class="contact">
+    <strong>Lothian LMC</strong><br>
+    Mainpoint, 102 West Port, Edinburgh EH3 9DN<br>
+    <a href="https://lothianlmc.co.uk/contact/">Contact form &rarr;</a>
+  </div>
+
+  <p class="hint">Tip: in Safari, tap Share &rarr; &ldquo;Add to Home Screen&rdquo; to install this as an app.</p>
+
+  <footer>
+    <span>&copy; 2026 Lothian LMC</span>
+    <span><a href="https://lothianlmc.co.uk">Main website</a></span>
+  </footer>
+
+</main>
+
+</body>
+</html>
